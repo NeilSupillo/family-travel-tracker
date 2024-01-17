@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New User</title>
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/new.css" />
+    <link rel="stylesheet" href="/styles/list.css" />
+  </head>
+
+  <body>
+    <div class="title"><h1>Account</h1></div>
+    <div class="user">
+      <div class="account">
+        <h2>Information</h2>
+        <form action="/update" method="post">
+          <input type="hidden" name="id" value="<%= user.id %>" />
+          <p>Name: <%= user.name %></p>
+          <p class="current-color">Current color: <%= user.color%></p>
+          <p>Input new name:</p>
+          <input type="text" name="name" value="" />
+          <p>Change color:</p>
+          <input type="radio" name="color" id="red" value="red" />
+          <label for="red"><span class="red"></span></label>
+
+          <input type="radio" name="color" id="green" value="green" />
+          <label for="green"><span class="green"></span></label>
+
+          <input type="radio" name="color" id="yellow" value="yellow" />
+          <label for="yellow"><span class="yellow"></span></label>
+
+          <input type="radio" name="color" id="olive" value="olive" />
+          <label for="olive"><span class="olive"></span></label>
+
+          <input type="radio" name="color" id="orange" value="orange" />
+          <label for="orange"><span class="orange"></span></label>
+
+          <input type="radio" name="color" id="teal" value="indigo" />
+          <label for="teal"><span class="teal"></span></label>
+
+          <input type="radio" name="color" id="blue" value="blue" />
+          <label for="blue"><span class="blue"></span></label>
+
+          <input type="radio" name="color" id="violet" value="violet" />
+          <label for="violet"><span class="violet"></span></label>
+
+          <input type="radio" name="color" id="purple" value="purple" />
+          <label for="purple"><span class="purple"></span></label>
+
+          <input type="radio" name="color" id="pink" value="pink" />
+          <label for="pink"><span class="pink"></span></label>
+          <div class="spacer"></div>
+          <button type="submit">Submit</button>
+        </form>
+
+        <form class="form-delete" action="/delete" method="post">
+          <input type="hidden" name="id" value="<%= user.id %>" />
+          <button class="delete" type="submit">Delete Account</button>
+        </form>
+      </div>
+      <!--  list list -->
+
+      <div class="country-con">
+        <h2>Country</h2>
+        <div class="box">
+          <% for(let i = 0; i < items.length; i++){%>
+          <div class="item">
+            <p id="title<%=items[i][1]%>"><%= items[i][0] %></p>
+
+            <form class="edit" action="/edit/country" method="post">
+              <input type="hidden" name="itemCode" value="<%= items[i][1] %>" />
+              <input
+                id="input<%=items[i][1]%>"
+                type="text"
+                name="updatedItemTitle"
+                value="<%= items[i][0] %>"
+                autocomplete="off"
+                autofocus="true"
+                hidden="true"
+              />
+              <button
+                id="done<%=items[i][1]%>"
+                class="edit"
+                type="submit"
+                hidden
+              >
+                <img
+                  class="icon"
+                  src="/assets/icons/check.png"
+                  alt="tick image"
+                />
+              </button>
+            </form>
+            <button
+              id="edit<%=items[i][1]%>"
+              class="edit"
+              onclick="handler('<%=items[i][1]%>')"
+            >
+              <img
+                class="icon"
+                src="/assets/icons/black.png"
+                alt="pencil image"
+              />
+            </button>
+            <form action="/delete/country" method="post">
+              <input
+                type="hidden"
+                name="deleteItemId"
+                value="<%= items[i][1] %>"
+              />
+              <button id="edit<%=items[i][1]%>" class="edit" type="submit">
+                <img
+                  class="icon"
+                  src="/assets/icons/trash.png"
+                  alt="pencil image"
+                />
+              </button>
+            </form>
+          </div>
+
+          <% } %>
+        </div>
+      </div>
+    </div>
+    <script>
+      function handler(id) {
+        document.getElementById("title" + id).setAttribute("hidden", true);
+        document.getElementById("edit" + id).setAttribute("hidden", true);
+        document.getElementById("done" + id).removeAttribute("hidden");
+        document.getElementById("input" + id).removeAttribute("hidden");
+      }
+    </script>
+  </body>
+</html>
