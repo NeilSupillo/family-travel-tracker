@@ -1,81 +1,71 @@
-import express from "express";
-import bodyParser from "body-parser";
-import pg from "pg";
+// <!DOCTYPE html>
+// <html lang="en">
+// <head>
+//   <meta charset="UTF-8">
+//   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//   <title>Hover Effect with Message</title>
+//   <style>
+//     /* Add some basic styling for the hover effect */
+//     .hoverElement {
+//       padding: 20px;
+//       background-color: #3498db;
+//       color: #fff;
+//       cursor: pointer;
+//       transition: background-color 0.3s ease;
+//       margin-bottom: 10px;
+//     }
 
-const app = express();
-const port = 3000;
+//     /* Style for the message paragraph */
+//     .messageParagraph {
+//       color: #333;
+//       font-weight: bold;
+//       display: none;
+//     }
 
-const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "world",
-  password: "asdf",
-  port: 5432,
-});
-db.connect();
+//     /* Style for the container */
+//     #messageContainer {
+//       margin-top: 20px;
+//     }
+//   </style>
+// </head>
+// <body>
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
+//   <!-- HTML elements with IDs for JavaScript to target -->
+//   <div class="hoverElement" id="hoverElement1">Hover me!</div>
 
-let currentUserId = 1;
+//   <div class="hoverElement" id="hoverElement2">Hover me too!</div>
 
-let users = [
-  { id: 1, name: "Angela", color: "teal" },
-  { id: 2, name: "Jack", color: "powderblue" },
-];
+//   <!-- Container to append paragraphs -->
+//   <div id="messageContainer"></div>
 
-async function checkVisisted() {
-  const result = await db.query("SELECT country_code FROM visited_countries");
-  let countries = [];
-  result.rows.forEach((country) => {
-    countries.push(country.country_code);
-  });
-  return countries;
-}
-app.get("/", async (req, res) => {
-  const countries = await checkVisisted();
+//   <script>
+//     // JavaScript code to add hover effect and display a message
+//     for (let i = 1; i <= 2; i++) {
+//       // Get the element using its ID
+//       const hoverElement = document.getElementById(`hoverElement${i}`);
 
-  res.render("index.ejs", {
-    countries: countries,
-    total: countries.length,
-    users: users,
-    color: "teal",
-  });
-});
-app.post("/add", async (req, res) => {
-  const input = req.body["country"];
+//       // Create a new paragraph element
+//       const messageParagraph = document.createElement('p');
+//       messageParagraph.className = 'messageParagraph';
+//       messageParagraph.id = `messageParagraph${i}`;
 
-  try {
-    const result = await db.query(
-      "SELECT country_code FROM countries WHERE LOWER(country_name) LIKE '%' || $1 || '%';",
-      [input.toLowerCase()]
-    );
+//       // Append the paragraph to the container with ID "messageContainer"
+//       const messageContainer = document.getElementById('messageContainer');
+//       messageContainer.appendChild(messageParagraph);
 
-    const data = result.rows[0];
-    const countryCode = data.country_code;
-    try {
-      await db.query(
-        "INSERT INTO visited_countries (country_code) VALUES ($1)",
-        [countryCode]
-      );
-      res.redirect("/");
-    } catch (err) {
-      console.log(err);
-    }
-  } catch (err) {
-    console.log(err);
-  }
-});
-app.post("/user", async (req, res) => {
-  // let user = req.body.add;
-  // console.log(user);
-});
+//       // Add hover effect
+//       hoverElement.addEventListener('mouseover', function() {
+//         hoverElement.style.backgroundColor = '#2980b9';
+//         messageParagraph.textContent = `You hovered over me${i === 1 ? '' : ' too'}!`;
+//         messageParagraph.style.display = 'block';
+//       });
 
-app.post("/new", async (req, res) => {
-  //Hint: The RETURNING keyword can return the data that was inserted.
-  //https://www.postgresql.org/docs/current/dml-returning.html
-});
+//       hoverElement.addEventListener('mouseout', function() {
+//         hoverElement.style.backgroundColor = '#3498db';
+//         messageParagraph.style.display = 'none';
+//       });
+//     }
+//   </script>
 
-app.listen(port, () => {
-  console.log(`Server running on http://localhost:${port}`);
-});
+// </body>
+// </html>

@@ -19,15 +19,23 @@
       <label for="<%= user.id %>" style="background-color: <%= user.color %>">
         <%= user.name %>
         <div class="dropdown">
-          <img class="dropbtn" src="/settings.png" alt="settings" />
+          <img class="dropbtn" src="/arrowdown.png" alt="settings" />
           <div class="dropdown-content">
-            <input type="submit" name="edit" value="<%= user.id %>" />
+            <a
+              class="account-button"
+              href="http://localhost:3000/user/<%= user.id %>"
+              >Account</a
+            >
+            <a
+              class="account-button"
+              href="http://localhost:3000/fullview/<%= user.id %>"
+              >Fullview</a
+            >
           </div>
         </div>
       </label>
 
       <% }); %>
-
       <input type="submit" name="add" value="add" id="tab" />
       <label for="tab">Add Family Member</label>
     </form>
@@ -49,6 +57,7 @@
         xmlns:xlink="http://www.w3.org/1999/xlink"
         version="1.1"
         viewBox="0 0 1008 651"
+        id="svg"
       >
         <path
           id="AE"
@@ -461,6 +470,7 @@
           title="Japan"
           d="M852.76,362.009l0.358,1.154l-1.579,2.025l-1.15,-1.072l-1.438,0.777l-0.744,1.946l-1.827,-0.946l0.022,-1.583l1.551,-2.003l1.595,0.39l1.152,-1.417L852.76,362.009zM870.53,351.726l-1.057,2.781l0.489,1.731l-1.461,2.416l-3.582,1.602l-4.929,0.208l-3.995,3.844l-1.884,-1.288l-0.116,-2.523l-4.877,0.747l-3.318,1.588l-3.282,0.064l2.843,2.463l-1.871,5.611l-1.813,1.373l-1.356,-1.268l0.688,-2.961l-1.774,-0.962l-1.139,-2.281l2.65,-1.03l1.471,-2.114l2.82,-1.75l2.057,-2.333l5.581,-1.023l2.998,0.702l2.934,-6.168l1.869,1.671l4.113,-3.512l1.595,-1.377l1.763,-4.383l-0.481,-4.1l1.185,-2.333l2.981,-0.682l1.528,5.108l-0.083,2.938l-2.594,3.602L870.53,351.726zM878.756,325.795l1.972,0.829l1.983,-1.651l0.623,4.348l-4.159,1.048l-2.455,3.763l-4.409,-2.583l-1.525,4.122l-3.119,0.056l-0.386,-3.741l1.387,-2.937l2.996,-0.213l0.817,-5.381l0.829,-3.089l3.295,4.117L878.756,325.795z"
         />
+
         <path
           id="KE"
           title="Kenya"
@@ -933,13 +943,53 @@
         />
       </svg>
     </section>
+
     <h2 class="total-count">Total Countries: <%=total%></h2>
+    <h3 class="country-name" id="country"></h3>
+    <div id="tooltip"></div>
     <script>
       const country_codes = "<%= countries %>".split(",");
-      console.log(typeof "<%= countries %>");
+      console.log(country_codes);
       country_codes.forEach((code) => {
-        document.getElementById(code).style.fill = "<%= color %>";
+        if (code != "") {
+          const name = document.getElementById(code);
+          name.style.fill = "<%= color %>";
+        }
+        //const name = document.getElementById(code).style.fill = "<%= color %>";
       });
+
+      // Get the SVG element by ID
+      const svg = document.getElementById("svg");
+      const tooltip = document.getElementById("country");
+
+      // Add event listeners to each country path
+      const countries = svg.querySelectorAll("path");
+      countries.forEach((country) => {
+        country.addEventListener("mouseenter", handleMouseEnter);
+        country.addEventListener("mouseleave", handleMouseLeave);
+      });
+
+      // Event handler for mouse enter
+      function handleMouseEnter(event) {
+        let countryName = event.target.getAttribute("title");
+        // if (countryName === null) {
+        //   countryName = event.target.getAttribute("class");
+        // }
+        //const formattedCountryName = countryName;
+        console.log(countryName);
+
+        // Show the tooltip at the mouse position
+        tooltip.innerHTML = countryName;
+        tooltip.style.left = `${event.pageX - 15}px`;
+        tooltip.style.top = `${event.pageY - 15}px`;
+        tooltip.style.display = "block";
+      }
+
+      // Event handler for mouse leave
+      function handleMouseLeave() {
+        // Hide the tooltip on mouse leave
+        tooltip.style.display = "none";
+      }
     </script>
   </body>
 </html>

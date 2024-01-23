@@ -80,7 +80,7 @@ app.get("/", async (req, res) => {
       countries: countries,
       total: countries.length,
       users: allUsers,
-      color: currentUser.color,
+      color: currentUser.color ? currentUser.color : "grey",
     });
   }
 });
@@ -115,10 +115,13 @@ app.post("/user", async (req, res) => {
   if (req.body.add === "add") {
     res.render("new.ejs");
   } else if (req.body.user) {
+    console.log(req.body.user);
     currentUserId = req.body.user;
     res.redirect("/");
   } else {
-    const currentUser = users.find((user) => user.id == req.body.edit);
+    console.log("he" + req.body.edit);
+    currentUserId = req.body.edit;
+    const currentUser = await getCurrentUser();
     const countryCode = await checkVisisted();
     let userCountries = [];
     countryCode.forEach((code) => {
@@ -128,7 +131,7 @@ app.post("/user", async (req, res) => {
         userCountries.push([countryCodes[code], code]);
       }
     });
-    // console.log("current");
+    //console.log("current");
     console.log(currentUser);
     res.render("edit.ejs", {
       user: currentUser,
@@ -218,7 +221,8 @@ app.post("/edit/country", async (req, res) => {
       [countryNames[name], currentUserId, code]
     );
 
-    const currentUser = users.find((user) => user.id == currentUserId);
+    //const currentUser = users.find((user) => user.id == currentUserId);
+    const currentUser = await getCurrentUser();
     const countryCode = await checkVisisted();
     let userCountries = [];
     countryCode.forEach((code) => {
@@ -269,6 +273,50 @@ app.post("/delete/country", async (req, res) => {
   }
 });
 
+app.get("/user/:id", async (req, res) => {
+  console.log(req.params.id);
+  currentUserId = req.params.id;
+  const currentUser = await getCurrentUser();
+  const countryCode = await checkVisisted();
+  let userCountries = [];
+  countryCode.forEach((code) => {
+    // console.log(countryCodes[code]);
+    // console.log(code);
+    if (countryCodes[code]) {
+      userCountries.push([countryCodes[code], code]);
+    }
+  });
+  //console.log("current");
+  console.log(currentUser);
+  res.render("edit.ejs", {
+    user: currentUser,
+    listTitle: "Country",
+    items: userCountries,
+  });
+});
+
+app.get("/fullview/:id", async (req, res) => {
+  currentUserId = req.params.id;
+
+  const currentUser = await getCurrentUser();
+  const countryCode = await checkVisisted();
+  let userCountries = [];
+  countryCode.forEach((code) => {
+    // console.log(countryCodes[code]);
+    // console.log(code);
+    if (countryCodes[code]) {
+      userCountries.push([countryCodes[code], code]);
+    }
+  });
+  //console.log("current");
+  console.log(currentUser);
+  res.render("full.ejs", {
+    user: currentUser,
+    countries: countryCode,
+    total: userCountries.length,
+    color: currentUser.color ? currentUser.color : "grey",
+  });
+});
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });

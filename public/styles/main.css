@@ -28,12 +28,14 @@ body {
 
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
-  display: block;
+  display: none;
   position: absolute;
   background-color: #f1f1f1;
-  min-width: 70px;
+  width: 70px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  left: -1rem;
+  line-height: 35px;
 }
 
 /* Links inside the dropdown */
@@ -41,10 +43,13 @@ body {
   color: black;
   text-decoration: none;
   display: block;
+  padding: 10px;
+  font-size: 10px;
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content input:hover {
+.dropdown-content input:hover,
+a:hover {
   background-color: #ddd;
 }
 
@@ -54,9 +59,7 @@ body {
 }
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
-  background-color: #757575;
-}
+
 .ag-canvas {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -65,7 +68,7 @@ body {
   -ms-flex-align: center;
   align-items: center;
 
-  position: relative;
+  /* position: relative; */
   visibility: visible;
 
   width: 100%;
@@ -92,7 +95,23 @@ body {
   stroke-width: 0.5;
   transition: 0.5s;
 }
+svg path:hover {
+  transition: 0.6s;
+  cursor: pointer;
+  fill: #757575;
+}
 
+/* #tooltip {
+  width: 3rem;
+} */
+
+.account-button {
+  text-decoration: none;
+  color: black;
+  font-size: 10px;
+  text-align: center;
+  padding: 11px 18px;
+}
 @media screen and (max-width: 767px) {
   .ag-canvas {
     -webkit-flex-flow: row wrap;
@@ -107,7 +126,8 @@ body {
   }
 }
 
-input {
+input,
+a {
   font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
@@ -116,7 +136,6 @@ input {
   padding: 15px;
   box-sizing: border-box;
   font-size: 14px;
-  padding-left: 21px;
 }
 
 button {
@@ -143,7 +162,14 @@ button {
   left: 0;
   bottom: 0;
 }
-
+.country-name {
+  font-family: "Roboto", sans-serif;
+  color: white;
+  position: absolute;
+  padding: 15px;
+  left: 0;
+  bottom: 2rem;
+}
 .tab-view {
   margin: 0;
   padding: 0;
