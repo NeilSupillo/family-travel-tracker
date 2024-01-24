@@ -8,6 +8,7 @@
   </head>
 
   <body>
+    <div class="error" id="error">error</div>
     <form class="tab-view tab-view-height-auto" action="/user" method="post">
       <% users.forEach(function(user) { %>
       <input
@@ -37,7 +38,7 @@
 
       <% }); %>
       <input type="submit" name="add" value="add" id="tab" />
-      <label for="tab">Add Family Member</label>
+      <label id="add" for="tab">Add Family Member</label>
     </form>
 
     <form action="/add" method="post">
@@ -990,6 +991,15 @@
         // Hide the tooltip on mouse leave
         tooltip.style.display = "none";
       }
+
+      // if ("<%= color %>" != undefined) {
+      //   setTimeout(function () {
+      //     // select the div by its id
+      //     var div = document.getElementById("error");
+      //     // remove the div from the document
+      //     div.remove();
+      //   }, 5000);
+      // }
     </script>
   </body>
 </html>

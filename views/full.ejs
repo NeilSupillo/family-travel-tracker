@@ -1,6 +1,6 @@
 <%- include('partials/header.ejs'); -%>
 
-<section class="ag-canvas">
+<section class="ag-canvas fullview">
   <svg
     class="ag-canvas_svg"
     xmlns="http://www.w3.org/2000/svg"
@@ -893,7 +893,13 @@
     />
   </svg>
 </section>
-<h2 class="total-count">Total Countries: <%=total%></h2>
+<div class="info-con">
+  <h2 class="info">
+    <% if(total === 0){ %> Hi <%=user.name%>, add what country you were born in
+    <% } else {%> Hi <%=user.name%>, you'd have been to <%=total%> countries <%
+    } %>
+  </h2>
+</div>
 <h3 class="country-name" id="country"></h3>
 <script>
   const country_codes = "<%= countries %>".split(",");

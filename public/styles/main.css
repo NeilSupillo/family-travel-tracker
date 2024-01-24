@@ -14,6 +14,17 @@ body {
   background: #21252b;
   font-family: "Roboto", sans-serif;
 }
+
+#add {
+  background: grey;
+}
+
+/* error */
+.error {
+  position: absolute;
+  right: 50%;
+  background-color: green;
+}
 /* drowdown */
 .dropbtn {
   border: none;
@@ -25,7 +36,9 @@ body {
   position: relative;
   display: inline-block;
 }
-
+.total-count-con {
+  margin: auto;
+}
 /* Dropdown Content (Hidden by Default) */
 .dropdown-content {
   display: none;
@@ -80,6 +93,16 @@ a:hover {
   z-index: -1;
   margin-top: -90px;
 }
+.fullview {
+  margin-top: 0;
+  padding: 1rem 0 0;
+  height: 80%;
+}
+
+.fullview .ag-canvas_svg {
+  margin-left: 0;
+}
+
 .ag-canvas_svg {
   display: block;
   width: 100%;
@@ -162,6 +185,15 @@ button {
   left: 0;
   bottom: 0;
 }
+.info {
+  font-family: "Roboto", sans-serif;
+  color: white;
+  padding: 15px;
+  left: 0;
+  bottom: 0;
+  text-align: center;
+}
+
 .country-name {
   font-family: "Roboto", sans-serif;
   color: white;

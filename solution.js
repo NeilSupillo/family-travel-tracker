@@ -92,6 +92,7 @@ app.post("/add", async (req, res) => {
     const countryCode = countryNames[input.toLowerCase()];
     console.log(countryCode);
     if (countryCode === undefined) {
+      res.redirect("/");
       throw new Error("wrong spelling");
     }
     try {
