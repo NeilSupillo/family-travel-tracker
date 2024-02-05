@@ -48,14 +48,14 @@ async function checkVisisted() {
   result.rows.forEach((country) => {
     countries.push(country.country_code);
   });
-  console.log(countries);
+  //console.log(countries);
   return countries;
 }
 
 async function getCurrentUser() {
   const result = await db.query("SELECT * FROM users");
   let user = result.rows;
-  console.log(user);
+  //console.log(user);
   return user.find((user) => user.id == currentUserId);
 }
 async function getallUser() {
@@ -68,7 +68,7 @@ app.get("/", async (req, res) => {
   const allUsers = await getallUser();
   const currentUser = await getCurrentUser();
 
-  console.log(currentUser);
+  //console.log(currentUser);
 
   if (currentUser === undefined) {
     res.render("index.ejs", {
@@ -95,7 +95,7 @@ app.post("/add", async (req, res) => {
 
   try {
     const countryCode = countryNames[input.toLowerCase()];
-    console.log(countryCode);
+    //console.log(countryCode);
     if (countryCode === undefined) {
       message = "Not a country";
       res.redirect("/");
