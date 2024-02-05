@@ -8,24 +8,24 @@ const app = express();
 const port = 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 
-// const POSTGRES_URL =
-//   "postgres://default:NxFpVY6S7LWs@ep-round-snowflake-46031602-pooler.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb";
+const POSTGRES_URL =
+  "postgres://default:NxFpVY6S7LWs@ep-round-snowflake-46031602-pooler.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb";
 
-// const { Pool } = pg;
+const { Pool } = pg;
 
-// const db = new Pool({
-//   connectionString: POSTGRES_URL + "?sslmode=require",
-// });
-
-const db = new pg.Client({
-  user: "postgres",
-  host: "localhost",
-  database: "world",
-  password: "asdf",
-  port: 5432,
+const db = new Pool({
+  connectionString: POSTGRES_URL + "?sslmode=require",
 });
+
+// const db = new pg.Client({
+//   user: "postgres",
+//   host: "localhost",
+//   database: "world",
+//   password: "asdf",
+//   port: 5432,
+// });
 
 // "start": "node solution.js"
 db.connect();
