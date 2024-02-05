@@ -22,8 +22,27 @@ body {
 /* error */
 .error {
   position: absolute;
-  right: 50%;
-  background-color: green;
+  right: 44%;
+  color: white;
+  background-color: rgb(172, 82, 66);
+  padding: 0.5rem;
+  border-radius: 1rem;
+  font-size: 0.7rem;
+  z-index: 1;
+  display: none;
+}
+.add-family {
+  padding: 1.2rem;
+  background-color: grey;
+  text-decoration: none;
+  color: black;
+  font-size: 10px;
+  text-align: center;
+  line-height: 47px;
+}
+
+.add-family-con {
+  display: inline-block;
 }
 /* drowdown */
 .dropbtn {
@@ -104,6 +123,7 @@ a:hover {
 }
 
 .ag-canvas_svg {
+  margin-top: 0.5rem;
   display: block;
   width: 100%;
   height: auto;

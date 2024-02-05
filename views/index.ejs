@@ -8,7 +8,7 @@
   </head>
 
   <body>
-    <div class="error" id="error">error</div>
+    <div class="error" id="error">"<%= message %>"</div>
     <form class="tab-view tab-view-height-auto" action="/user" method="post">
       <% users.forEach(function(user) { %>
       <input
@@ -24,7 +24,7 @@
           <div class="dropdown-content">
             <a
               class="account-button"
-              href="http://localhost:3000/user/<%= user.id %>"
+              href="http://localhost:3000/user/account/<%= user.id %>"
               >Account</a
             >
             <a
@@ -37,8 +37,13 @@
       </label>
 
       <% }); %>
-      <input type="submit" name="add" value="add" id="tab" />
-      <label id="add" for="tab">Add Family Member</label>
+      <!-- <input type="submit" name="add" value="add" id="tab" />
+      <label id="add" for="tab">Add Family Member</label> -->
+      <div class="add-family-con">
+        <a class="add-family" href="http://localhost:3000/add/newuser"
+          >Add Family Member</a
+        >
+      </div>
     </form>
 
     <form action="/add" method="post">
@@ -47,6 +52,7 @@
         name="country"
         autofocus
         placeholder="<%= locals.error ? error :  'Enter country name'%>"
+        autocomplete="off"
       />
       <button type="submit" style="background-color: <%= color %>">Add</button>
     </form>
@@ -992,14 +998,17 @@
         tooltip.style.display = "none";
       }
 
-      // if ("<%= color %>" != undefined) {
-      //   setTimeout(function () {
-      //     // select the div by its id
-      //     var div = document.getElementById("error");
-      //     // remove the div from the document
-      //     div.remove();
-      //   }, 5000);
-      // }
+      if ("<%= message %>" != "") {
+        var div = document.getElementById("error");
+        div.style.display = "block";
+        setTimeout(function () {
+          // select the div by its id
+
+          div.style.display = "none";
+          // remove the div from the document
+          // div.remove();
+        }, 3000);
+      }
     </script>
   </body>
 </html>

@@ -9,6 +9,8 @@ body {
 
 .user {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 .title h1 {
   margin: auto;
@@ -16,12 +18,12 @@ body {
 }
 .account {
   margin: 0 1rem;
-  width: 50%;
   padding: 1rem;
 }
 .country-con {
   width: 50%;
   padding: 1rem;
+  min-width: 20rem;
 }
 .delete {
   background-color: red;
