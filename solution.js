@@ -9,8 +9,6 @@ const port = 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
-app.set("views", __dirname + "/views");
-app.set("view engine", "ejs");
 
 const POSTGRES_URL =
   "postgres://default:NxFpVY6S7LWs@ep-round-snowflake-46031602-pooler.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb";
