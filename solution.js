@@ -3,7 +3,10 @@ import bodyParser from "body-parser";
 import pg from "pg";
 import countryNames from "./countryname.js";
 import countryCodes from "./countrycode.js";
+import { URL } from "url";
 
+const __filename = new URL("", import.meta.url).pathname;
+const __dirname = new URL(".", import.meta.url).pathname;
 const app = express();
 const port = 3000;
 
